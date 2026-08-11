@@ -1,0 +1,18 @@
+.env
+target/
+cp.txt
+app.log
+apache-maven-3.9.16/
+employee.properties
+
+# IDE
+.classpath
+.project
+.settings/
+.vscode/
+
+# assistant tooling/docs, not part of the project deliverable
+.claude/
+claude/
+flow.md
+decision.md

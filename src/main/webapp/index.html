@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Welcome to Employee Management System</h2>
+    <p>Manish Yamraja 1</p>
+
+    <h2>View All Employee</h2>
+    <a href="./api">View All Employees</a><br />
+    <h2>Add Employee</h2>
+    <!-- <a href="add-employee.html">Add Employee</a><br /> -->
+    <form class="text-centre" action="./api" method="POST">
+      <label for="id">ID:</label>
+      <input type="text" id="id" name="id" required /><br /><br />
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required /><br /><br />
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age" required /><br /><br />
+      <button type="submit" value="Add Employee">Add Employee</button>
+    </form>
+    <h2>View Employee</h2>
+    <!-- <a href="view.html">View Employee</a><br /> -->
+    <form action="./api" method="get">
+      <label for="id">Employee ID:</label>
+      <input type="text" id="id" name="id" required />
+      <button type="submit">View Employee</button>
+    </form>
+    <h2>Delete Employee</h2>
+    <!-- <a href="delete-employee.html">Delete Employee</a> -->
+    <form action="./api" method="get">
+      <input type="hidden" name="action" value="delete" />
+      <label for="id">Employee ID:</label>
+      <input type="text" id="id" name="id" required />
+      <button type="submit">Delete Employee</button>
+    </form>
+  </body>
+</html>
+-
