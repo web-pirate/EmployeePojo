@@ -13,6 +13,6 @@ employee.properties
 
 # assistant tooling/docs, not part of the project deliverable
 .claude/
-claude/
-flow.md
-decision.md
+docs/flow.md
+docs/decision.md
+docs/memory.md

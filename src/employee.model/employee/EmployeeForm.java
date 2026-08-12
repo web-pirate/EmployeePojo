@@ -1,8 +1,8 @@
 package employee;
 
-public class UserData {
+public class EmployeeForm {
     private String name;
-    private String email;
+    private int age;
 
     public String getName() {
         return name;
@@ -12,11 +12,11 @@ public class UserData {
         this.name = name;
     }
 
-    public String getMessage() {
-        return email;
+    public int getAge() {
+        return age;
     }
 
-    public void setMessage(String email) {
-        this.email = email;
+    public void setAge(int age) {
+        this.age = age;
     }
 }
