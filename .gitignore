@@ -2,6 +2,7 @@
 target/
 cp.txt
 app.log
+jetty-run.log
 apache-maven-3.9.16/
 employee.properties
 

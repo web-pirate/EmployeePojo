@@ -1,0 +1,18 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <nav th:fragment="navbar" class="navbar navbar-expand navbar-dark bg-dark mb-3">
+      <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Employee App</a>
+        <div class="navbar-nav">
+          <a class="nav-link" th:href="@{/}">Home</a>
+          <a class="nav-link" th:href="@{/ui/home}">UI Home</a>
+          <a class="nav-link" th:href="@{/ui/features}">Features</a>
+          <a class="nav-link" th:href="@{/ui/pricing}">Pricing</a>
+          <a class="nav-link" th:href="@{/ui/training}">UI Training</a>
+        </div>
+        <span class="navbar-text text-light">[[${info.getMessage()}]]</span>
+      </div>
+    </nav>
+  </body>
+</html>

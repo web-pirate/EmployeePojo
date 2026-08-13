@@ -1,0 +1,31 @@
+:root {
+  --color-1: #a4efde;
+  --color-2: #6ccd9c;
+  --color-3: #3da990;
+  --color-4: #3caf2a;
+  --color-5: #7ebd2e;
+}
+
+body {
+  background-color: #f0f4f8;
+  font-family: "Google Sans", "Product Sans", Arial, sans-serif;
+  color: var(--color-3);
+}
+
+h1, h2, h3 {
+  color: var(--color-4);
+}
+
+a {
+  color: var(--color-3);
+}
+
+.btn-primary {
+  background-color: var(--color-4);
+  border-color: var(--color-4);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-5);
+  border-color: var(--color-5);
+}

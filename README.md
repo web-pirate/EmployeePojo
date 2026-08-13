@@ -3,7 +3,7 @@
 A small Java/Maven demo app for Employee CRUD, built on Hibernate + MySQL, with two independent web layers on top of the same server:
 
 - **Raw servlet API** (`/api`) — Hibernate-backed CRUD (create/read/update/delete employees), plus static HTML pages under `src/main/webapp/`.
-- **Spring MVC API** (`/api/{id}`) — a Spring MVC + `springdoc-openapi` layer (`EmployeeController`), also Hibernate/MySQL-backed, with interactive Swagger docs. Note: the exact path `/api` (no id) is currently claimed by the raw servlet layer above, not Spring — see [docs/flow.md](docs/flow.md) for the routing details.
+- **Spring MVC API** (`/api/employee`, `/api/about`) — a Spring MVC + `springdoc-openapi` layer (`EmployeeController`, `AboutAppController`), also Hibernate/MySQL-backed, with interactive Swagger docs. Lives entirely under `/api/employee/*` specifically so it doesn't collide with the raw servlet layer's exact `/api` path — see [docs/flow.md](docs/flow.md) for the routing details.
 
 Deeper project docs live in [`docs/`](docs/): [flow.md](docs/flow.md) (request flow, file map), [decision.md](docs/decision.md) (judgment-call log), [memory.md](docs/memory.md) (build/run status), and [jetty-hotreload-dispatcherservlet-issue.md](docs/jetty-hotreload-dispatcherservlet-issue.md) (a currently-open bug — see "Known issue" below).
 
@@ -46,7 +46,8 @@ App is then live at `http://localhost:9000/employee/`:
 
 - `http://localhost:9000/employee/` — static HTML pages (add/view/list employees)
 - `http://localhost:9000/employee/api` — raw servlet CRUD endpoint (GET/POST/PUT/DELETE)
-- `http://localhost:9000/employee/api/{id}` — Spring MVC CRUD by id (GET/PUT/DELETE)
+- `http://localhost:9000/employee/api/employee[/{id}]` — Spring MVC CRUD (GET/POST/PUT/DELETE)
+- `http://localhost:9000/employee/api/about` — app name/version (Spring MVC)
 - `http://localhost:9000/employee/swagger-ui/index.html` — interactive API docs for the Spring MVC layer (must be the full path — bare `/swagger-ui` 404s)
 - `http://localhost:9000/employee/v3/api-docs` — raw OpenAPI JSON
 

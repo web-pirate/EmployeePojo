@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
     private static EmployeeHibernateApi api;
@@ -27,17 +29,17 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/api")
+    @PostMapping("")
     public void add(@RequestBody EmployeeForm form) throws SQLException {
         api.insert(convert(form));
     }
 
-    @DeleteMapping("/api/{id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable("id") int id) throws SQLException {
         api.delete(id);
     }
 
-    @GetMapping("/api/{id}")
+    @GetMapping("{id}")
     public EmployeeData get(@PathVariable("id") int id) throws SQLException {
         EmployeePojo p = api.select(id);
         if (p == null) {
@@ -46,13 +48,13 @@ public class EmployeeController {
         return convert(p);
     }
 
-    @PutMapping("/api/{id}")
+    @PutMapping("{id}")
     public void update(@PathVariable("id") int id, @RequestBody EmployeeForm form) throws SQLException {
         EmployeePojo p = convert(form);
         api.update(id,p);
     }
 
-    @GetMapping("/api")
+    @GetMapping("")
     public List<EmployeeData> getAll() throws SQLException {
         List<EmployeeData> list = new ArrayList<>();
         List<EmployeePojo> list2 = api.selectAll();

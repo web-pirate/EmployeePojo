@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="snippets.html :: header(title='Home')"></head>
+  <body>
+    <div th:replace="~{fragments/navbar.html :: navbar}"></div>
+
+    <div class="container">
+      <h2>Home hai ji</h2>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/employee/html/app.js" th:src="@{/html/app.js}"></script>
+  </body>
+</html>
