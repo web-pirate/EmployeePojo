@@ -1,44 +1,46 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+package employee;
+
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import employee.EmployeePojo;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 
 @Repository
-
 public class EmployeeDao {
 
-    // private HashMap<Integer, EmployeePojo> rows;
-    private HashMap<Integer, EmployeePojo> rows;
-    private int lastId;
-
-    @PostConstruct
-    public void init(){
-        rows = new HashMap<>(<Integer>, HashMap())
-    }
+    @PersistenceContext
+    EntityManager em;
 
     public void insert(EmployeePojo p) {
-        lastId++;
-        p.setId(lastId);
-        rows.put(p.getId(), p);
+        em.persist(p);
+    }
 
+    public void delete(int id) {
+        em.remove(select(id));
+    }
 
+    public EmployeePojo select(int id) {
+        EmployeePojo p = em.find(EmployeePojo.class, id);
+        if (p == null) {
+            throw new EntityNotFoundException("Employee not found: " + id);
+        }
+        return p;
     }
-    public void delete(int id){
-        rows.remove(id);
 
+    public List<EmployeePojo> selectAll() {
+        return getQuery("from EmployeePojo").getResultList();
     }
-    public EmployeePojo select(int id){
-        return rows.get(id);
+
+    public void update(EmployeePojo p) {
+        em.merge(p);
     }
-    public List<EmployeePojo> selectAll(){
-        ArrayList<EmployeePojo> list = new ArrayList<>(rows.values());
-        list.addAll(rows.values());
-        return list;
+
+    TypedQuery<EmployeePojo> getQuery(String jpql){
+        return em.createQuery(jpql, EmployeePojo.class);
     }
-    public void update(int id, EmployeePojo p){
-        rows.put(id, p);
-    }
+
 }

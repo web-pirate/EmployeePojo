@@ -1,10 +1,11 @@
-import static java.util.Collections.list;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import employee.EmployeePojo;
-import employee.dao.EmployeeDao;
+import employee.EmployeeDao;
 
 
 @Service
@@ -24,11 +25,7 @@ public class EmployeeService {
         dao.delete(id);
 
     }
-    public void update(int id, EmployeePojo newPojo){
-        dao.update(id, newPojo);
-
-    }
-    public EmployeePojo get(int id){
+    public EmployeePojo get(int id) throws ApiException{
         EmployeePojo p = getCheck(id);
         return p;
 
@@ -37,20 +34,26 @@ public class EmployeeService {
         return dao.selectAll();
 
     }
-    public void update(int id, EmployeePojo newPojo) throws ApiExecption{
+    @Transactional(rollbackFor = ApiException.class)
+    public void update(int id, EmployeePojo newPojo) throws ApiException{
         normalize(newPojo);
-        getCheck(id);
-        dao.update(id, newPojo);
+        EmployeePojo ex = getCheck(id);
+        ex.setAge(newPojo.getAge());
+        ex.setName(newPojo.getName());
+        newPojo.setId(id);
+        dao.update(newPojo);
     }
-    public EmployeePojo getCheck(int id){
-        EmployeePojo p = get(id);
+    @Transactional(rollbackFor = RuntimeException.class)
+    public EmployeePojo getCheck(int id) throws ApiException{
+        EmployeePojo p = dao.select(id);
         if(p==null){
 
-            throw new ApiException("Employee with given ID does not exixt, id: "+id);
+            throw new ApiException("Employee with given ID does not exist, id: "+id);
         }
+        return p;
     }
     private static void normalize(EmployeePojo p){
-        p.setName(p.getName().toLowerCase().trail());
+        p.setName(p.getName().toLowerCase().trim());
     }
 
 }

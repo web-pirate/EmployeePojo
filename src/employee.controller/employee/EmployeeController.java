@@ -36,6 +36,7 @@ public class EmployeeController {
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") int id) throws SQLException {
+        checkExists(id);
         api.delete(id);
     }
 
@@ -50,6 +51,7 @@ public class EmployeeController {
 
     @PutMapping("{id}")
     public void update(@PathVariable("id") int id, @RequestBody EmployeeForm form) throws SQLException {
+        checkExists(id);
         EmployeePojo p = convert(form);
         api.update(id,p);
     }
@@ -62,6 +64,12 @@ public class EmployeeController {
             list.add(convert(p));
         }
         return list;
+    }
+
+    private static void checkExists(int id) throws SQLException {
+        if (api.select(id) == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found: " + id);
+        }
     }
 
     private static EmployeeData convert(EmployeePojo p) {
